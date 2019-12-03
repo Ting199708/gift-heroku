@@ -20,8 +20,8 @@ line_bot_api = LineBotApi('4VfcF4pQ7zfweO+ExrrKHJSeUtmE9trHLwc2yHeuTwoQLJfHiWl57
 # Channel Secret
 handler = WebhookHandler('04c0ccc463c35b364c721fd1426da0f5')
 #Name list
-name_list = ['丁之正','蕭博鈞','張裕宏','張之叡','黃煜庭','鄒承翰','許子亮','賴翰樟','鄭聖耀','林亦壎']
-passwd_list = ['yJ1238tde24']
+#name_list = ['丁之正','蕭博鈞','張裕宏','張之叡','黃煜庭','鄒承翰','許子亮','賴翰樟','鄭聖耀','林亦壎']
+#passwd_list = ['yJ1238tde24']
 # 監聽所有來自 /callback 的 Post Request
 @app.route("/callback", methods=['POST'])
 def callback():
@@ -47,13 +47,13 @@ def handle_message(event):
         reply_text = "請先告訴我你的名字"
         #Your user ID
 
-    for i in name_list:
-        if(text==i):
-            reply_text = i+"你好，再來請告訴我你的密碼"
-            break
-    for passwd in range(passwd_list.size()):
-        if(text == passwd_list[passwd]):
-            reply_text = "驗證成功！\n請你依照以下資訊進行配送"
+    #for i in name_list:
+    #    if(text==i):
+    #        reply_text = i+"你好，再來請告訴我你的密碼"
+    #        break
+    #for passwd in range(passwd_list.size()):
+    #    if(text == passwd_list[passwd]):
+    #        reply_text = "驗證成功！\n請你依照以下資訊進行配送"
 
     message = TextSendMessage(reply_text)
     line_bot_api.reply_message(event.reply_token, message)
