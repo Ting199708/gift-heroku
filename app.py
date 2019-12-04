@@ -1,27 +1,20 @@
 from flask import Flask, request, abort
-from urllib.request import urlopen
-#from oauth2client.service_account import ServiceAccountCredentials
 
 from linebot import (
     LineBotApi, WebhookHandler
 )
 from linebot.exceptions import (
-    InvalidSignatureError,LineBotApiError
+    InvalidSignatureError
 )
-
-################################
-
 from linebot.models import *
 
 app = Flask(__name__)
 
 # Channel Access Token
-line_bot_api = LineBotApi('4VfcF4pQ7zfweO+ExrrKHJSeUtmE9trHLwc2yHeuTwoQLJfHiWl57wogOi5KWxWqwzHCRffM6rSMSwfpWc6k6x5E1SzCRXbKDEKkHaYX0/bCEgDMiVlYMscyCUCLq/N40iGknnnzBYNzor1+Q8qGKQdB04t89/1O/w1cDnyilFU=')
+line_bot_api = LineBotApi('YOUR_CHANNEL_ACCESS_TOKEN')
 # Channel Secret
-handler = WebhookHandler('04c0ccc463c35b364c721fd1426da0f5')
-#Name list
-#name_list = ['丁之正','蕭博鈞','張裕宏','張之叡','黃煜庭','鄒承翰','許子亮','賴翰樟','鄭聖耀','林亦壎']
-#passwd_list = ['yJ1238tde24']
+handler = WebhookHandler('YOUR_CHANNEL_SECRET')
+
 # 監聽所有來自 /callback 的 Post Request
 @app.route("/callback", methods=['POST'])
 def callback():
@@ -40,22 +33,7 @@ def callback():
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    print(event)
-    text=event.message.text
-
-    if (text=="交換禮物"):
-        reply_text = "請先告訴我你的名字"
-        #Your user ID
-
-    #for i in name_list:
-    #    if(text==i):
-    #        reply_text = i+"你好，再來請告訴我你的密碼"
-    #        break
-    #for passwd in range(passwd_list.size()):
-    #    if(text == passwd_list[passwd]):
-    #        reply_text = "驗證成功！\n請你依照以下資訊進行配送"
-
-    message = TextSendMessage(reply_text)
+    message = TextSendMessage(text=event.message.text)
     line_bot_api.reply_message(event.reply_token, message)
 
 import os
